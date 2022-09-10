@@ -129,4 +129,4 @@ def test_exercice1 ():
     
 
 
-test_exercice1()
+#test_exercice1()
