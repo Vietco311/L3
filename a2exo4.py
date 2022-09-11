@@ -1,7 +1,7 @@
 from a2exo1 import val_max
 
 
-LISTE = [0, 3, 17, 4, 8, 1, 33, 22, 0]
+LISTE = [0, 3, 17, 4, 8, 1, 29, 22, 0]
 LISTE2 = [0,1,2,3,4]
 
 
@@ -84,21 +84,9 @@ def affiche_histo(F):
             else:
                 print("   |", end='')
         print("\n")
-    plt.style.use('_mpl-gallery')
+    for b in range(max(F) + 1):
+        print(f" {b} |", end='')
 
-# make data
-np.random.seed(1)
-x = 4 + np.random.normal(0, 1.5, 200)
-
-# plot:
-fig, ax = plt.subplots()
-
-ax.hist(x, bins=8, linewidth=0.5, edgecolor="white")
-
-ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
-       ylim=(0, 56), yticks=np.linspace(0, 56, 9))
-
-plt.show()
 
 def test_exo4():
     print(histo(LISTE2))
