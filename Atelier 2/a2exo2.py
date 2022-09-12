@@ -1,3 +1,5 @@
+
+
 LISTE = [3, 17, 4, 6, 6]
 
 def position1(L, e):
