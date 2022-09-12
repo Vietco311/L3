@@ -1,7 +1,8 @@
 from a2exo1 import val_max
+import matplotlib.pyplot as plt
+import numpy as np
 
-
-LISTE = [0, 3, 17, 4, 8, 1, 29, 22, 0]
+LISTE = [0, 3, 10, 4, 8, 1, 0]
 LISTE2 = [0,1,2,3,4]
 
 
@@ -14,9 +15,9 @@ def histo(F) -> list:
     Returns:
         list: L'histogramme
     """
-    H = []
-    for i in range(min(F), max(F)+1):
-        H.append(0)
+    
+    NB = max(F)+1 
+    H = [0] * NB
     for a in range(len(H)):
         for j in range(len(F)):
             if F[j] == a:
@@ -64,10 +65,8 @@ def est_bijective(F) -> bool:
     Returns:
         bool
     """
-    if est_injective(F) == True and est_surjective(F) == True:
-        return True
-    else:
-        return False
+    return est_injective(F) == True and est_surjective(F) == True
+
 
 def affiche_histo(F):
     """Affiche dans la console l'histogramme de la liste F
@@ -86,7 +85,9 @@ def affiche_histo(F):
         print("\n")
     for b in range(max(F) + 1):
         print(f" {b} |", end='')
-
+    fig, ax = plt.subplots()
+    ax.hist(F)
+    plt.show()
 
 def test_exo4():
     print(histo(LISTE2))

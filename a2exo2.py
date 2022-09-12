@@ -74,7 +74,7 @@ def est_triee2(L):
     """
     triee = True
     i = 0
-    while i < len(L):
+    while triee and i < len(L):
         if i != 0 and L[i] < L[i-1]:
             triee = False
         i += 1
