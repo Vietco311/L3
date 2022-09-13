@@ -23,6 +23,7 @@ def is_mail(str_arg: str):
     valid = 1
     code = 0
     x = str_arg.split("@")
+    print(len(x))
     if len(x) < 3:
         if x[0][0] == "." or x[0][-1] == ".":
             valid = 0
@@ -37,27 +38,28 @@ def is_mail(str_arg: str):
             valid = 0
             code = 1
             print("le mail n’est pas valide, le corp n’est pas valide2")
-    else:
-        valid = 0
-        code = 3
-        print("le mail n’est pas valide, le domaine n’est pas valide0")
-    for i in range(len(x[1])):
-        if x[1][i] == "." and x[1][i-1] == ".":
+        for i in range(len(x[1])):
+            if x[1][i] == "." and x[1][i-1] == ".":
+                valid = 0
+                code = 3
+                print("le mail n’est pas valide, le domaine n’est pas valide1")
+        if re.match('[a-zA-Z0-9\-\.]', x[1]) == False:
             valid = 0
             code = 3
-            print("le mail n’est pas valide, le domaine n’est pas valide1")
-    if re.match('[a-zA-Z0-9\-\.]', x[1]) == False:
+            print("le mail n’est pas valide, le domaine n’est pas valide2")
+        if x[1][-1] == "." or "." not in x[1]:
+            valid = 0
+            code = 4
+            print("le mail n’est pas valide, problème de point dans le domaine")
+    else:
         valid = 0
-        code = 3
-        print("le mail n’est pas valide, le domaine n’est pas valide2")
-    if x[1][-1] == "." or "." not in x[1]:
-        valid = 0
-        code = 4
-        print("le mail n’est pas valide, problème de point dans le domaine")
+        code = 2
+        print("le mail n’est pas valide, problème d'@")
+    
     return (valid, code)
 
 def test():
-    print(is_mail("bisgambiglia@univ-corse.fr"))
+    print(is_mail("bisgambiglia@@univ-corse.fr"))
     print(full_name("colin anthony"))
 
 test()
