@@ -1,7 +1,7 @@
 import re
 
 def full_name(str_arg:str) -> str:
-    """transform a full name from lower case to upper case for the name and only the first for the surname
+    """transform a full name from lower case to upper case for the name and only the first letter for the surname
 
     Args:
         str_arg (str): full name
@@ -14,7 +14,7 @@ def full_name(str_arg:str) -> str:
     surname = x[1].replace(x[1][0], x[1][0].upper())
     return name + " " + surname
 
-def is_mail(str_arg: str):
+def is_mail(str_arg: str) -> tuple:
     """Check the validity of an email
 
     Args:
@@ -22,32 +22,32 @@ def is_mail(str_arg: str):
     """
     valid = 1
     code = 0
-    x = str_arg.split("@")
-    print(len(x))
-    if len(x) < 3:
-        if x[0][0] == "." or x[0][-1] == ".":
+    corps_domaine = str_arg.split("@")
+    print(len(corps_domaine))
+    if len(corps_domaine) < 3:
+        if corps_domaine[0][0] == "." or corps_domaine[0][-1] == ".":
             valid = 0
             code = 1
-            print("le mail n’est pas valide, le corp n’est pas valide0")
-        for i in range(len(x[0])):
-            if x[0][i] == "." and x[0][i-1] == ".":
+            print("le mail n’est pas valide, le corps n’est pas valide0")
+        for i in range(len(corps_domaine[0])):
+            if corps_domaine[0][i] == "." and corps_domaine[0][i-1] == ".":
                 valid = 0
                 code = 1
-                print("le mail n’est pas valide, le corp n’est pas valide1")
-        if re.match('[\-\w]', x[0]) == False:
+                print("le mail n’est pas valide, le corps n’est pas valide1")
+        if re.match('[\-\w]', corps_domaine[0]) == False:
             valid = 0
             code = 1
-            print("le mail n’est pas valide, le corp n’est pas valide2")
-        for i in range(len(x[1])):
-            if x[1][i] == "." and x[1][i-1] == ".":
+            print("le mail n’est pas valide, le corps n’est pas valide2")
+        for i in range(len(corps_domaine[1])):
+            if corps_domaine[1][i] == "." and corps_domaine[1][i-1] == ".":
                 valid = 0
                 code = 3
                 print("le mail n’est pas valide, le domaine n’est pas valide1")
-        if re.match('[a-zA-Z0-9\-\.]', x[1]) == False:
+        if re.match('[a-zA-Z0-9\-\.]', corps_domaine[1]) == False:
             valid = 0
             code = 3
             print("le mail n’est pas valide, le domaine n’est pas valide2")
-        if x[1][-1] == "." or "." not in x[1]:
+        if corps_domaine[1][-1] == "." or "." not in corps_domaine[1]:
             valid = 0
             code = 4
             print("le mail n’est pas valide, problème de point dans le domaine")
@@ -59,7 +59,7 @@ def is_mail(str_arg: str):
     return (valid, code)
 
 def test():
-    print(is_mail("bisgambiglia@@univ-corse.fr"))
+    print(is_mail("ant.colin311@gmail.com"))
     print(full_name("colin anthony"))
 
 test()

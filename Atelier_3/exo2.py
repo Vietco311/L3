@@ -1,3 +1,6 @@
+from re import A
+
+
 LST_MOT=["jouer","bonjour", "punir", "jour", "aurevoir", "revoir", "pouvoir", "cour", "abajour",
 "finir", "aimer"]
 
@@ -114,11 +117,13 @@ def liste_mots(lst_mot, prefixe, suffixe, n) -> list:
     return is_valid
 
 def dictionnaire(fichier):
-    f=open(fichier, "r")
+    lst = []
+    f=open(fichier, encoding="utf-8")
+    c=f.readline()
     while c !="":
-        print(c)
         c=f.readline()
-    return c
+        lst.append(c.strip("\n"))
+    return lst
 
 
 def test():
@@ -139,4 +144,4 @@ def test():
     print(liste_mots(LST_MOT, "au", "oir", 8))
     print(dictionnaire("littre.txt"))
 
-test()
+#test()
