@@ -13,11 +13,11 @@ def mot_Nlettres(lst_mot:list, n:int) -> list:
         n (int): number of letters
 
     Returns:
-        list: The list with the corresponding word.
+        list: The list with the corresponding words.
     """
     lst = lst_mot.copy()
     for e in lst_mot:
-        if len(e) != n:
+        if len(e) > n:
             lst.remove(e)
     return lst
 

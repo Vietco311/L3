@@ -128,5 +128,5 @@ def test():
     print(places_lettre('b', "babouin"))
     print(outputStr("babouin", places_lettre('b', "babouin")))
 
-runGame()
-test()
+#runGame()
+#test()
