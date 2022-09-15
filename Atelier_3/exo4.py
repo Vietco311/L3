@@ -1,6 +1,5 @@
 from exo2 import mot_Nlettres
 from exo3 import dictionnaire, build_dict
-from collections import OrderedDict
 
 
 def mot_correspond(mot, motif) -> bool:
@@ -84,7 +83,7 @@ def mot_optimaux(dico: list, lettres: str) -> list:
     if lst_copy == []:
         mot_optimaux(dico, lettres)
     else:
-        possibilites = OrderedDict(sorted(build_dict(lst_copy)))
+        possibilites = build_dict(lst_copy)
         print(possibilites)
         return possibilites
 
