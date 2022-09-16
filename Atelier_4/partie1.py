@@ -1,8 +1,10 @@
 from random import *
+from re import I
 from time import *
 import matplotlib.pyplot as plt
 import numpy as np
 
+LIST_NUMBER = [14,45,98,100,3,0,5654,45,36]
 LIST = [1, 2, 7, 9, 6, 10, 13, 14, 'cuillère', 'fourchette', 'couteau']
 LIST_OCC = [i for i in range(0, 100000, 5000)]
 
@@ -43,7 +45,7 @@ def choose_element_list(list_in_which_to_choose:list):
     return element
 
 def extract_elements_list(list_in_which_to_choose:list, int_to_extract:int) -> list:
-    """Take a number of element of a list to put it into another
+    """Take a random element of a list to put it into another
 
     Args:
         list_in_which_to_choose (list): A list
@@ -61,13 +63,71 @@ def extract_elements_list(list_in_which_to_choose:list, int_to_extract:int) -> l
     return list_chosen
 
 def sort_list(list:list) -> tuple:
+    """Sort a list
+
+    Args:
+        list (list): List of random numbers
+
+    Returns:
+        tuple: sorted and initial list
+    """
     copy = list.copy()
     sorted = []
     for i in range(len(list)):
-        sorted += min(copy)
+        sorted.append(min(copy))
         copy.remove(min(copy))
     return sorted, list
 
+def stupid_list(list:list) -> tuple:
+    """Sort a list but stupidly(shuffle until sorted)
+
+    Args:
+        list (list): List of random numbers
+
+    Returns:
+        tuple: stupid and initial list
+    """
+    copy = list.copy()
+    sorted_stup = []
+    while sorted_stup != sorted(list):
+        sorted_stup = extract_elements_list(copy, len(copy))
+    return sorted_stup, list
+
+def insert_list(list:list) -> tuple:
+    """Sort a list by insertion
+
+    Args:
+        list (list): List of random numbers
+
+    Returns:
+        tuple: insert and initial list
+    """
+    copy = list.copy()
+    for i in range(len(list)):
+        # mémoriser list[i] dans x
+        x = list[i]
+        # décaler les éléments list[0]..list[i-1] qui sont plus grands que x, en partant de list[i-1]
+        j = i
+        while j > 0 and copy[j-1] > x:
+            copy[j] = copy[j-1]
+            j = j-1
+        # placer x dans le "trou" laissé par le décalage
+        copy[j] = x
+    return copy, list
+
+def select_list(list: list) -> tuple:
+    copy = list.copy()
+    for i in range(0, len(list)):
+        print(copy)
+        mini = i
+        for j in range(i+1, len(list)):
+            print(list[j], list[mini])
+            if copy[j] < copy[mini]:
+                mini = j
+        if mini != i:
+            copy[mini], copy[i] = copy[i], copy[mini]
+
+    return copy, list
 
 def perf(fait_main: callable, prog:callable, taille:list, avg:int) -> tuple:
     start = perf_counter()
@@ -96,6 +156,24 @@ def stock_valeur(perf_func:callable, avg:int) -> dict:
     print(list_echant)
     return list_echant
     
+
+
+
+
+def test():
+    print(gen_list_random_int(1, 12))
+    print(mix_list(LIST))
+    print(choose_element_list(LIST))
+    print(extract_elements_list(LIST, 5))
+    print(sort_list(LIST_NUMBER))
+    print(stupid_list(LIST_NUMBER))
+    print(insert_list(LIST_NUMBER))
+    print(select_list(LIST_NUMBER))
+    print(perf(mix_list, shuffle, [i for i in range(10000)], 100))
+
+test()
+
+
 fig, ax = plt.subplots()
 #Dessin des courbes, le premier paramètre
 #correspond aux point d'abscisse le
@@ -108,14 +186,3 @@ ax.set(xlabel='vitesse du programme', ylabel="Nombre d'élement", title='Compara
 ax.legend(loc='upper center', shadow=True, fontsize='x-large')
 #fig.savefig("test.png")
 plt.show()
-
-
-
-def test():
-    print(gen_list_random_int(1, 12))
-    print(mix_list(LIST))
-    print(choose_element_list(LIST))
-    print(extract_elements_list(LIST, 5))
-    print(perf(mix_list, shuffle, [i for i in range(10000)], 100))
-
-#test()
