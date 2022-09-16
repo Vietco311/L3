@@ -1,7 +1,10 @@
 from random import *
 from time import *
+import matplotlib.pyplot as plt
+import numpy as np
 
 LIST = [1, 2, 7, 9, 6, 10, 13, 14, 'cuillère', 'fourchette', 'couteau']
+LIST_OCC = [i for i in range(0, 100000, 5000)]
 
 def gen_list_random_int(int_binf:int, int_bsup:int) -> list:
     """generate a list of random number
@@ -57,7 +60,16 @@ def extract_elements_list(list_in_which_to_choose:list, int_to_extract:int) -> l
         list.remove(element)
     return list_chosen
 
-def perf_mix(fait_main: callable, prog:callable, taille:list, avg:int) -> tuple:
+def sort_list(list:list) -> tuple:
+    copy = list.copy()
+    sorted = []
+    for i in range(len(list)):
+        sorted += min(copy)
+        copy.remove(min(copy))
+    return sorted, list
+
+
+def perf(fait_main: callable, prog:callable, taille:list, avg:int) -> tuple:
     start = perf_counter()
     for i in range(avg):
         fait_main(taille)
@@ -69,7 +81,34 @@ def perf_mix(fait_main: callable, prog:callable, taille:list, avg:int) -> tuple:
     end = perf_counter()
     prog_avg = (end - start)/avg
     comparaison = (fait_main_avg, prog_avg)
+
     return comparaison
+
+
+def stock_valeur(perf_func:callable, avg:int) -> dict:
+    list_echant = {}
+    for h in range(2):
+        list_echant[h] = []
+        for j in range(0, 100000, 5000):
+            print("JE SUIS LA", j)
+            echant = perf_func(mix_list, shuffle, [i for i in range(j)], avg)[h]
+            list_echant[h].append(echant)
+    print(list_echant)
+    return list_echant
+    
+fig, ax = plt.subplots()
+#Dessin des courbes, le premier paramètre
+#correspond aux point d'abscisse le
+#deuxième correspond aux points d'ordonnées
+#le troisième paramètre, optionnel permet de
+#choisir éventuellement la couleur et le marqueur
+ax.plot(stock_valeur(perf,100)[0],LIST_OCC,'bo-',label='Fait main')
+ax.plot(stock_valeur(perf,100)[1],LIST_OCC, 'r*-', label='Machine')
+ax.set(xlabel='vitesse du programme', ylabel="Nombre d'élement", title='Comparaison de vitesse')
+ax.legend(loc='upper center', shadow=True, fontsize='x-large')
+#fig.savefig("test.png")
+plt.show()
+
 
 
 def test():
@@ -77,6 +116,6 @@ def test():
     print(mix_list(LIST))
     print(choose_element_list(LIST))
     print(extract_elements_list(LIST, 5))
-    print(perf_mix(mix_list, shuffle, [i for i in range(10000)], 100))
+    print(perf(mix_list, shuffle, [i for i in range(10000)], 100))
 
-test()
+#test()
