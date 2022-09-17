@@ -1,5 +1,6 @@
+from operator import xor
 from random import *
-from re import I
+from re import I, T
 from time import *
 import matplotlib.pyplot as plt
 import numpy as np
@@ -104,30 +105,75 @@ def insert_list(list:list) -> tuple:
     """
     copy = list.copy()
     for i in range(len(list)):
-        # mémoriser list[i] dans x
         x = list[i]
-        # décaler les éléments list[0]..list[i-1] qui sont plus grands que x, en partant de list[i-1]
         j = i
         while j > 0 and copy[j-1] > x:
             copy[j] = copy[j-1]
             j = j-1
-        # placer x dans le "trou" laissé par le décalage
         copy[j] = x
     return copy, list
 
 def select_list(list: list) -> tuple:
     copy = list.copy()
     for i in range(0, len(list)):
-        print(copy)
         mini = i
         for j in range(i+1, len(list)):
-            print(list[j], list[mini])
             if copy[j] < copy[mini]:
                 mini = j
         if mini != i:
             copy[mini], copy[i] = copy[i], copy[mini]
 
     return copy, list
+
+def bubble_list(list: list) -> tuple:
+    copy = list.copy()
+    for i in range(len(list), 1, -1):
+        tableau_trie = True
+        for j in range(0, i-1):
+            if copy[j+1] < copy[j]:
+                copy[j+1], copy[j] = copy[j], copy[j+1]
+                tableau_trie = False
+        if tableau_trie:
+            return copy, list
+
+def fusion_list(list:list) -> tuple:
+    copy = list.copy()
+    if len(list) <= 1:
+        return list
+    else:
+        listA = sorted(copy[:len(list)//2])
+        listB = sorted(copy[len(list)//2:])
+        fusionne = fusion(fusion_list(listA), fusion_list(listB))
+        return fusionne
+
+def fusion(listA:list, listB:list)-> list:
+    indexA = 0
+    indexB = 0
+    fusion = []
+    while indexA < len(listA) and indexB < len(listB):
+        if listA[indexA] < listB[indexB]:
+            fusion.append(listA[indexA])
+            indexA += 1
+        else:
+            fusion.append(listB[indexB])
+            indexB += 1
+    while indexA < len(listA):
+        fusion.append(listA[indexA])
+        indexA += 1
+    while indexB < len(listB):
+        fusion.append(listB[indexB])
+        indexB += 1
+    return fusion
+
+def base_list(list:list, bout:int) -> tuple:
+    base = []
+    for i in range(bout):
+        base.append(list[i])
+        base = insert_list(base)[0]
+    return base, list
+
+    
+
 
 def perf(fait_main: callable, prog:callable, taille:list, avg:int) -> tuple:
     start = perf_counter()
@@ -169,6 +215,9 @@ def test():
     print(stupid_list(LIST_NUMBER))
     print(insert_list(LIST_NUMBER))
     print(select_list(LIST_NUMBER))
+    print(bubble_list(LIST_NUMBER), "BUBBLE")
+    print(fusion_list(LIST_NUMBER), "FUUUUUUUUUUUU...SION!!!")
+    print(base_list(LIST_NUMBER, 9), "BASED")
     print(perf(mix_list, shuffle, [i for i in range(10000)], 100))
 
 test()
