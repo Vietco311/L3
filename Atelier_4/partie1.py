@@ -1,11 +1,10 @@
-from operator import xor
+
 from random import *
-from re import I, T
 from time import *
 import matplotlib.pyplot as plt
 import numpy as np
 
-LIST_NUMBER = [14,45,98,100,3,0,5654,45,36]
+LIST_NUMBER = [170, 45, 75, 90, 2, 24, 802, 66]
 LIST = [1, 2, 7, 9, 6, 10, 13, 14, 'cuillère', 'fourchette', 'couteau']
 LIST_OCC = [i for i in range(0, 100000, 5000)]
 
@@ -114,6 +113,14 @@ def insert_list(list:list) -> tuple:
     return copy, list
 
 def select_list(list: list) -> tuple:
+    """Sort by selection
+
+    Args:
+        list (list): List of random numbers
+
+    Returns:
+        tuple: selected and initial list
+    """
     copy = list.copy()
     for i in range(0, len(list)):
         mini = i
@@ -126,6 +133,14 @@ def select_list(list: list) -> tuple:
     return copy, list
 
 def bubble_list(list: list) -> tuple:
+    """Sort by according to bubble
+
+    Args:
+        list (list): List of random numbers
+
+    Returns:
+        tuple: bubbled and initial list
+    """
     copy = list.copy()
     for i in range(len(list), 1, -1):
         tableau_trie = True
@@ -137,6 +152,14 @@ def bubble_list(list: list) -> tuple:
             return copy, list
 
 def fusion_list(list:list) -> tuple:
+    """Merged two list
+
+    Args:
+        list (list): List of random numbers
+
+    Returns:
+        tuple: merged list
+    """
     copy = list.copy()
     if len(list) <= 1:
         return list
@@ -147,6 +170,15 @@ def fusion_list(list:list) -> tuple:
         return fusionne
 
 def fusion(listA:list, listB:list)-> list:
+    """Come with fusion_list, do the sorting by selecting from each list the smaller element
+
+    Args:
+        listA (list)
+        listB (list)
+
+    Returns:
+        list: merged list
+    """
     indexA = 0
     indexB = 0
     fusion = []
@@ -165,13 +197,62 @@ def fusion(listA:list, listB:list)-> list:
         indexB += 1
     return fusion
 
-def base_list(list:list, bout:int) -> tuple:
-    base = []
-    for i in range(bout):
-        base.append(list[i])
-        base = insert_list(base)[0]
-    return base, list
 
+
+def radix_order(list:list, order:int):
+    """Sort a list by order range(unit, ten, hundred)
+
+    Args:
+        list (list): list to sort
+        order (int): 1, 10, 100...etc
+
+    Returns:
+        _type_: list sorted with the current order
+    """
+    n = len(list)
+    output = [0] * n
+    count = [0] * 10
+    #Divise par 10^x(0,1,2 etc) chaque élément de la liste
+    for i in range(0, n):
+        index = list[i] // order
+        count[index % 10] += 1
+    print(count, "toto")
+
+    #Fait correspondre chaque élément de count à la position
+    #des éléments dans la liste de sortie
+    for i in range(1, 10):
+        count[i] += count[i - 1]
+    print(count, "titi")
+
+    #Place les éléments de la liste à leur position configuré dans count
+    i = n - 1
+    while i >= 0:
+        index = list[i] // order
+        output[count[index % 10] - 1] = list[i]
+        count[index % 10] -= 1
+        i -= 1
+    i = 0
+    for i in range(0, len(list)):
+        list[i] = output[i]
+    print(output)
+    return output
+
+def radix_list(list:list) -> tuple:
+    """Return the comparison of the list sorted and the initial list
+
+    Args:
+        list (list): list to mix 
+
+    Returns:
+        tuple: radix sorted and initial list
+    """
+    base = list.copy()
+    max1 = max(list)
+    order = 1
+    while max1 / order >= 1:     
+        base = radix_order(base, order)
+        order *= 10
+    return base, list
     
 
 
@@ -212,12 +293,12 @@ def test():
     print(choose_element_list(LIST))
     print(extract_elements_list(LIST, 5))
     print(sort_list(LIST_NUMBER))
-    print(stupid_list(LIST_NUMBER))
+    print(stupid_list(LIST_NUMBER), "STUPID")
     print(insert_list(LIST_NUMBER))
     print(select_list(LIST_NUMBER))
     print(bubble_list(LIST_NUMBER), "BUBBLE")
     print(fusion_list(LIST_NUMBER), "FUUUUUUUUUUUU...SION!!!")
-    print(base_list(LIST_NUMBER, 9), "BASED")
+    print(radix_list(LIST_NUMBER), "BASED")
     print(perf(mix_list, shuffle, [i for i in range(10000)], 100))
 
 test()
