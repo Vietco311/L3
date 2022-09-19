@@ -1,12 +1,12 @@
-
-from random import *
+import random
 from time import *
 import matplotlib.pyplot as plt
 import numpy as np
 
 LIST_NUMBER = [170, 45, 75, 90, 2, 24, 802, 66]
 LIST = [1, 2, 7, 9, 6, 10, 13, 14, 'cuillère', 'fourchette', 'couteau']
-LIST_OCC = [i for i in range(0, 100000, 5000)]
+LIST_OCC = [i for i in range(0, 50000, 5000)]
+
 
 def gen_list_random_int(int_binf:int, int_bsup:int) -> list:
     """generate a list of random number
@@ -18,7 +18,7 @@ def gen_list_random_int(int_binf:int, int_bsup:int) -> list:
     Returns:
         list: The said list
     """
-    int_nbr = randint(int_binf, int_bsup)
+    int_nbr = random.randint(int_binf, int_bsup)
     return int_nbr
 
 def mix_list(list_to_mix:list) -> list:
@@ -31,17 +31,21 @@ def mix_list(list_to_mix:list) -> list:
         list: Mixed list
     """
     list_mixed = []
-    for i in range(len(list_to_mix)):
-        i = randint(0, len(list_to_mix))
-        list_mixed.append(i)
+    while list_to_mix != []:
+        j = random.randint(0, len(list_to_mix)-1)
+        list_mixed.append(list_to_mix[j])
+        list_to_mix.remove(list_to_mix[j])
     return list_mixed
+
+
 def choose_element_list(list_in_which_to_choose:list):
     """Return a random element of a list
 
     Args:
         list_in_which_to_choose (list): The list
     """
-    element = choice(list_in_which_to_choose)
+    j = random.randint(0, len(list_in_which_to_choose)-1)
+    element = list_in_which_to_choose[j]
     return element
 
 def extract_elements_list(list_in_which_to_choose:list, int_to_extract:int) -> list:
@@ -57,7 +61,7 @@ def extract_elements_list(list_in_which_to_choose:list, int_to_extract:int) -> l
     list = list_in_which_to_choose.copy()
     list_chosen = []
     for i in range(int_to_extract):
-        element = choice(list)
+        element = choose_element_list(list)
         list_chosen.append(element)
         list.remove(element)
     return list_chosen
@@ -164,8 +168,8 @@ def fusion_list(list:list) -> tuple:
     if len(list) <= 1:
         return list
     else:
-        listA = sorted(copy[:len(list)//2])
-        listB = sorted(copy[len(list)//2:])
+        listA = copy[:len(list)//2]
+        listB = copy[len(list)//2:]
         fusionne = fusion(fusion_list(listA), fusion_list(listB))
         return fusionne
 
@@ -271,21 +275,30 @@ def perf(fait_main: callable, prog:callable, taille:list, avg:int) -> tuple:
 
     return comparaison
 
+list_occ_ran = mix_list(LIST_OCC)
 
-def stock_valeur(perf_func:callable, avg:int) -> dict:
-    list_echant = {}
-    for h in range(2):
-        list_echant[h] = []
-        for j in range(0, 100000, 5000):
-            print("JE SUIS LA", j)
-            echant = perf_func(mix_list, shuffle, [i for i in range(j)], avg)[h]
-            list_echant[h].append(echant)
+def perf_sort(sort_func:callable, taille:list, avg:int) -> list:
+    start = perf_counter()
+    for i in range(avg):
+        sort_func(list_occ_ran)
+    end = perf_counter()
+    func_avg = (end - start)/avg
+    return func_avg
+
+def stock_valeur(perf_func:float, list:list) -> list:
+    list_echant = []
+    for j in range(0, 50000, 5000):
+        print("JE SUIS LA", j)
+        echant = perf_func
+        list_echant.append(echant)
     print(list_echant)
     return list_echant
     
 
-
-
+def sorted_bis(list:list) -> tuple:
+    copy = list.copy()
+    sorted(copy)
+    return copy, list
 
 def test():
     print(gen_list_random_int(1, 12))
@@ -299,10 +312,11 @@ def test():
     print(bubble_list(LIST_NUMBER), "BUBBLE")
     print(fusion_list(LIST_NUMBER), "FUUUUUUUUUUUU...SION!!!")
     print(radix_list(LIST_NUMBER), "BASED")
-    print(perf(mix_list, shuffle, [i for i in range(10000)], 100))
+    #print(perf(mix_list, shuffle, [i for i in range(10000)], 100))
 
 test()
 
+list_occ_ran = mix_list(LIST_OCC)
 
 fig, ax = plt.subplots()
 #Dessin des courbes, le premier paramètre
@@ -310,8 +324,12 @@ fig, ax = plt.subplots()
 #deuxième correspond aux points d'ordonnées
 #le troisième paramètre, optionnel permet de
 #choisir éventuellement la couleur et le marqueur
-ax.plot(stock_valeur(perf,100)[0],LIST_OCC,'bo-',label='Fait main')
-ax.plot(stock_valeur(perf,100)[1],LIST_OCC, 'r*-', label='Machine')
+ax.plot(stock_valeur(perf_sort(sorted_bis, LIST_OCC, 100),100),LIST_OCC,'bo-',label='sorted')
+ax.plot(stock_valeur(perf_sort(insert_list, LIST_OCC, 100),100),LIST_OCC, 'r*-', label='Machine')
+ax.plot(stock_valeur(perf_sort(select_list, LIST_OCC, 100),100),LIST_OCC, 'r*-', label='Machine')
+ax.plot(stock_valeur(perf_sort(bubble_list, LIST_OCC, 100),100),LIST_OCC, 'r*-', label='Machine')
+ax.plot(stock_valeur(perf_sort(fusion_list, LIST_OCC, 100),100),LIST_OCC, 'r*-', label='Machine')
+ax.plot(stock_valeur(perf_sort(radix_list, LIST_OCC, 100),100),LIST_OCC, 'r*-', label='Machine')
 ax.set(xlabel='vitesse du programme', ylabel="Nombre d'élement", title='Comparaison de vitesse')
 ax.legend(loc='upper center', shadow=True, fontsize='x-large')
 #fig.savefig("test.png")
