@@ -31,28 +31,30 @@ def mix_list(list_to_mix:list) -> list:
         list: Mixed list
     """
     list_mixed = []
+    copy = list_to_mix.copy()
     while list_to_mix != []:
         j = random.randint(0, len(list_to_mix)-1)
         list_mixed.append(list_to_mix[j])
-        list_to_mix.remove(list_to_mix[j])
+        list_to_mix.remove(copy[j])
     return list_mixed
 
 
-def choose_element_list(list_in_which_to_choose:list):
+def choose_element_list(list:list):
     """Return a random element of a list
 
     Args:
         list_in_which_to_choose (list): The list
     """
-    j = random.randint(0, len(list_in_which_to_choose)-1)
-    element = list_in_which_to_choose[j]
+    print(list)
+    j = random.randint(0, len(LIST)-1)
+    element = list[j]
     return element
 
-def extract_elements_list(list_in_which_to_choose:list, int_to_extract:int) -> list:
+def extract_elements_list(list:list, int_to_extract:int) -> list:
     """Take a random element of a list to put it into another
 
     Args:
-        list_in_which_to_choose (list): A list
+        list (list): A list
         int_to_extract (int): The number of element to extract
 
     Returns:
