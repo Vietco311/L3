@@ -21,7 +21,7 @@ public class Secretaire extends Employe{
 		return listManager;
 	}
 	
-
+	
 
 	public void setBonus(double bonus) {
 		this.bonus = bonus;
