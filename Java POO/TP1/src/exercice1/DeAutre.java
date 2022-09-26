@@ -1,9 +1,9 @@
 package exercice1;
 
-public class De_autre extends Des {
+public class DeAutre extends Des {
 	
 	//Constructors
-	public De_autre() {
+	public DeAutre() {
 	}
 	
 	//Methods

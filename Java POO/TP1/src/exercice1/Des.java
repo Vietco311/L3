@@ -4,42 +4,19 @@ import java.util.*;
 public class Des {
 	protected String name;
 	protected int nbFaces;
-	static final int min = 3;
-	static final int max = 120;
+	static final int MIN = 3;
+	static final int MAX = 120;
 	protected static Random r = new Random();
-	protected static int nb_Des;
-	
-	//Getters
-	
-	public String getName() {
-		return name;
-	}
-	public static int getNb_Des() {
-		return nb_Des;
-	}
-	public int getNbFaces() {
-		return nbFaces;
-	}
-	
-	//Setter
-	public void setNbFaces(int nbFaces) {
-		if (nbFaces < min && nbFaces > max) {
-			System.err.println("Nombre de faces incorrect");
-			this.nbFaces = 6;
-		}
-		else {
-			this.nbFaces = nbFaces;
-		}
-	}
+	protected static int nbDes;
 	
 	
 	//Constructors
 	
 	//Set default name to "De n°x"
 	public Des(String nName, int nNbFace) {
-		nb_Des ++;
-		if (nName == "") {
-			this.name = "De n°" + nb_Des;
+		nbDes ++;
+		if (nName == "" || nName == null) {
+			this.name = "De n°" + nbDes;
 		}
 		else {
 			this.name = nName;
@@ -49,28 +26,42 @@ public class Des {
 	}
 	
 	public Des() {
-		nb_Des ++;
-		this.name = "De n°" + nb_Des;
-		this.nbFaces = 6;
+		this("De n°" + nbDes, 6);
 	}
 	public Des(int nNbFace) {
-		nb_Des ++;
-		this.name = "De n°" + nb_Des;
-		setNbFaces(nNbFace);
+		this("De n°" + nbDes, nNbFace);
 		
 	}
 	public Des(String nName) {
-		nb_Des ++;
-		if (nName == "") {
-			this.name = "De n°" + nb_Des;
-		}
-		else {
-			this.name = nName;
-		}
-		this.nbFaces = 6;
+		this(nName, 6);
 		
 	}
 	
+	
+	//Getters
+	
+	public String getName() {
+		return name;
+	}
+	public static int getNb_Des() {
+		return nbDes;
+	}
+	public int getNbFaces() {
+		return nbFaces;
+	}
+	
+	//Setter
+	public void setNbFaces(int nbFaces) {
+		if (nbFaces < MIN || nbFaces > MAX) {
+			System.err.println("Nombre de faces incorrect");
+			this.nbFaces = 6;
+		}
+		else {
+			this.nbFaces = nbFaces;
+		}
+	}
+	
+
 	
 	//Methods
 	//Throw a dice

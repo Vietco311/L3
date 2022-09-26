@@ -1,15 +1,13 @@
 package exercice1;
 
-public class De_pipe extends Des {
+public class DePipe extends Des {
 	//Attributes
 	private int borneMin;
 	
 	//Constructor
-	public De_pipe(String nName, int nNbFace, int nBorneMin) {
-		if (nNbFace > min && nNbFace < max){
-			this.nbFaces = nNbFace;
-		}
-		if (nBorneMin < nNbFace && nBorneMin > 0) {
+	public DePipe(String nName, int nNbFace, int nBorneMin) {
+		super(nName, nNbFace);
+		if (nBorneMin < nNbFace && nBorneMin >= MIN) {
 			this.borneMin = nBorneMin;
 		}
 		else {
@@ -20,11 +18,9 @@ public class De_pipe extends Des {
 	//Throw a dice which keeps rolling while the random value is under borneMin
 	public int lancer() {
 		int nbAleatoire = r.nextInt(nbFaces);
-		if (nbAleatoire < borneMin) {
-			return lancer();
+		while (nbAleatoire < borneMin) {
+			nbAleatoire = r.nextInt(nbFaces);
 		}
-		else {
-			return nbAleatoire + 1;
-		}
+		return nbAleatoire + 1;
 	}	
 }
