@@ -2,6 +2,7 @@ package exercice1;
 
 public class DeAutre extends Des {
 	
+
 	//Constructors
 	public DeAutre() {
 	}
@@ -9,21 +10,25 @@ public class DeAutre extends Des {
 	//Methods
 	
 	//Throw a dice with peculiar face
-	public int lancer() {
+	public String lancer() {
+		String result; 
 		int nbAleatoire = r.nextInt(nbFaces);
 		if(nbAleatoire+1 == nbFaces/2) {
-			System.out.println("Moitié");		
+			result = "Motié";		
 		}
 		else if(nbAleatoire+1 == nbFaces/4){
-			System.out.println("Quart");
+			result = "Quart";
 		}
 		else if(nbAleatoire+1 == nbFaces/3){
-			System.out.println("Tier");
+			result = "Tier";
 		}
 		else if(nbAleatoire+1 == nbFaces){
-			System.out.println("MAX");
+			result = "Max";
 		}
-		return nbAleatoire + 1;
+		else {
+			result = "Rien de particulier..."
+		}
+		return result;
 	}
 
 }
