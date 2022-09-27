@@ -30,7 +30,7 @@ public class ManipEntier {
 	}
 	
 	public ManipEntier(int nEntier) {
-		this.entier = nEntier;
+		setEntier(nEntier);
 		
 	}
 	
