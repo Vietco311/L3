@@ -1,4 +1,4 @@
-package exercice12;
+package exercice1_2;
 import java.util.*;
 
 public class EntierFou extends ManipEntier {

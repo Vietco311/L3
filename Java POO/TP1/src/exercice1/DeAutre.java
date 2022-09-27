@@ -1,6 +1,7 @@
 package exercice1;
-
+//EN TRAVAUX!!!
 public class DeAutre extends Des {
+	
 	
 
 	//Constructors
@@ -26,7 +27,7 @@ public class DeAutre extends Des {
 			result = "Max";
 		}
 		else {
-			result = "Rien de particulier..."
+			result = "Rien de particulier...";
 		}
 		return result;
 	}

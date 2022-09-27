@@ -1,4 +1,4 @@
-package exercice03;
+package exercice0_3;
 
 public class testAPI {
 

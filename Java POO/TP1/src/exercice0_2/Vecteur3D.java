@@ -1,4 +1,4 @@
-package exercice02;
+package exercice0_2;
 import static java.lang.Math.sqrt;
 
 

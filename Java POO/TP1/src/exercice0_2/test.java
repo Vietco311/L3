@@ -1,4 +1,4 @@
-package exercice02;
+package exercice0_2;
 
 public class test {
 
