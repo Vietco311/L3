@@ -4,10 +4,11 @@ import java.util.*;
 public class Des {
 	protected String name;
 	protected int nbFaces;
+	private static final int NB_FACES_DEFAUT = 6;
 	static final int MIN = 3;
 	static final int MAX = 120;
 	protected static Random r = new Random();
-	protected static int nbDes;
+	protected static int nbDes = 0;
 	
 	
 	//Constructors
@@ -26,14 +27,14 @@ public class Des {
 	}
 	
 	public Des() {
-		this("De n°" + nbDes, 6);
+		this("De n°" + nbDes, NB_FACES_DEFAUT);
 	}
 	public Des(int nNbFace) {
 		this("De n°" + nbDes, nNbFace);
 		
 	}
 	public Des(String nName) {
-		this(nName, 6);
+		this(nName, NB_FACES_DEFAUT);
 		
 	}
 	
@@ -54,7 +55,7 @@ public class Des {
 	public void setNbFaces(int nbFaces) {
 		if (nbFaces < MIN || nbFaces > MAX) {
 			System.err.println("Nombre de faces incorrect");
-			this.nbFaces = 6;
+			this.nbFaces = NB_FACES_DEFAUT;
 		}
 		else {
 			this.nbFaces = nbFaces;
@@ -66,14 +67,14 @@ public class Des {
 	//Methods
 	//Throw a dice
 	public int lancer() {
-		int nbAleatoire = r.nextInt(nbFaces);
-		return nbAleatoire + 1;
+		return r.nextInt(nbFaces+1);
 	}
 	
 	//Throw a dice nb number of time
 	public int lancer(int nb) {
 		int max = 0;
-		for (int i = 0; i < nb; i++) {
+		int i = 0;
+		while (i != nbFaces && max != MAX) {
 			int nbAleatoire = lancer();
 			if (nbAleatoire > max) {
 				max = nbAleatoire;

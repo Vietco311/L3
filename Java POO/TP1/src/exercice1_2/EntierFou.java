@@ -13,7 +13,8 @@ public class EntierFou extends ManipEntier {
 	}
 	
 	public EntierFou(int nEntier, int nFolie) {
-		this.entier = nEntier;
+		super(nEntier);
+
 		this.niveauDeFolie = nFolie;
 		
 	}

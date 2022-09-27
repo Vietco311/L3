@@ -4,8 +4,8 @@ package exercice1_2;
 public class ManipEntier {
 	//Attributes
 	protected int entier;
-	protected final int min = 0;
-	protected final int max = 12;
+	protected final int MIN = 0;
+	protected final int MAX = 12;
 	
 	//Getters
 	public int getEntier() {
@@ -15,7 +15,7 @@ public class ManipEntier {
 	
 	//Setters
 	public void setEntier(int entier) {
-		if (entier < max && entier > min) {
+		if (entier < MAX && entier > MIN) {
 			this.entier = entier;
 		}
 		else {
@@ -25,8 +25,7 @@ public class ManipEntier {
 	
 	//Constructors
 	public ManipEntier() {
-		this.entier = 0;
-		setEntier(min + 1);
+		setEntier(MIN + 1);
 	}
 	
 	public ManipEntier(int nEntier) {
@@ -38,12 +37,13 @@ public class ManipEntier {
 	
 	//Increment n to the object without going beyond boundaries
 	public int incremente(int n) {
-		if (this.entier + n < max && this.entier + n > min) {
+		if (this.entier + n < MAX && this.entier + n > MIN) {
 			return this.entier += n;
 		}
 		else {
 			System.err.println("ERREUR! Bornes non respectées! Valeur inchangée " + this.entier);
-			return this.min - 1;
+			int errRetour = MIN - 1;
+			return errRetour;
 		}
 	}
 	
