@@ -53,7 +53,7 @@ public class Case {
      * Remove a character from the case
      * @param perso
      */
-    public void eneleverPersonnage(Personnage perso){
+    public void enleverPersonnage(){
         this.perso = null;
     }
     /**

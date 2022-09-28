@@ -55,43 +55,40 @@ public class Jeu {
     }
 
     public void lancerJeu(){
-        for (int i = 0; i < tousLesPersos().size(); i++){
-            int j = 0;
-            while (j < cases.size()){
-                if(cases.get(j).estLibre()){
-                    j++;
-                    cases.get(j).placerPersonnage(tousLesPersos().get(i));
-                }
-                else{
-                    j += 2;
-                    cases.get(j).placerPersonnage(tousLesPersos().get(i));
-                }
-            }
-        }
         initialiserCases();
-        afficherParticipants();
+        for(int i = 0; i < tousLesPersos().size(); i++){
+            int j = 0;
+            while(!(cases.get(j).estLibre())){
+                j++;
+            }
+            cases.get(j).placerPersonnage((tousLesPersos().get(i)));
+            tousLesPersos().get(i).setPosition(j);
+        }
         for (int j = 0; j < nbEtapes; j++){
             System.out.println("\n---- Etape "+ j + "----\n");
+            afficherParticipants();
+            afficheCases();
             for (int k = 0; k < tousLesPersos().size(); k++){
-                int positionSouhaitee = (tousLesPersos().get(k).positionSouhaitee() + tousLesPersos().get(k).getPosition())%50;
-                if(cases.get(positionSouhaitee).estLibre()){
-                    cases.get(tousLesPersos().get(k).getPosition()).eneleverPersonnage(tousLesPersos().get(k));
-                    tousLesPersos().get(k).deplacer(positionSouhaitee, (cases.get(positionSouhaitee).getGain()));
-                    cases.get(positionSouhaitee).placerPersonnage(tousLesPersos().get(k));
-                } else if (cases.get(positionSouhaitee).sansObstacle() == false) {
-                    tousLesPersos().get(k).penaliser(cases.get(positionSouhaitee).getPenalite());
+                int avancementEspere = (tousLesPersos().get(k).positionSouhaitee())%NB_CASES;
+                int positionEspere = (avancementEspere + tousLesPersos().get(k).getPosition())%NB_CASES;
+                if(cases.get(positionEspere).estLibre()){
+                    cases.get((tousLesPersos().get(k).getPosition())%NB_CASES).enleverPersonnage();
+                    tousLesPersos().get(k).deplacer(avancementEspere, (cases.get(positionEspere).getGain()));
+                    cases.get(positionEspere).placerPersonnage(tousLesPersos().get(k));
+                } else if (cases.get(positionEspere).sansPerso()) {
+                    tousLesPersos().get(k).penaliser(cases.get(positionEspere).getPenalite());
                 } else {
-                    tousLesPersos().get(k).penaliser(-cases.get(positionSouhaitee).getGain());
+                    tousLesPersos().get(k).penaliser(-cases.get(positionEspere).getGain());
                 }
             }
-            afficheCases();
+            
         }
         System.out.println(afficherResultat());
     }
 
     public void afficheCases(){
         for (int i = 0; i < cases.size(); i++){
-            System.out.println(cases.get(i).toString());
+            System.out.println(cases.get(i).toString() + " " + i);
         }
     }
 
@@ -99,7 +96,7 @@ public class Jeu {
         System.out.println("LISTE DE JOUEUR");
         for (int i = 0; i < listeJoueurs.size(); i++){
             System.out.println("--------------------\n");
-            System.out.println(listeJoueurs.get(i));
+            System.out.println(listeJoueurs.get(i)+"\n");
         }
     }
 

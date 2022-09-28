@@ -8,6 +8,10 @@ public class Tauren extends Personnage {
         this.taille = nTaille;
     }
 
+    public void deplacer(int destination, int gain){
+        super.deplacer(destination, gain);;     
+    }
+
     public int positionSouhaitee(){
         int r = (int)(Math.random() * taille) + 1;
         return r;

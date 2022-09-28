@@ -9,7 +9,6 @@ public class Humain extends Personnage {
     }
 
     public void deplacer(int destination, int gain){
-        super.deplacer(destination, gain);
         this.nbDeplacements ++;
         if (this.nbDeplacements == 4){
             this.niveau++;
@@ -17,10 +16,11 @@ public class Humain extends Personnage {
         else if(this.nbDeplacements == 6) {
             this.niveau++;
         }
+        super.deplacer(destination, gain);
     }
 
     public int positionSouhaitee(){
-        return this.niveau * this.nbDeplacements;
+        return this.niveau * ((int)(Math.random() * niveau) + 1);
     }
 
     public String toString(){

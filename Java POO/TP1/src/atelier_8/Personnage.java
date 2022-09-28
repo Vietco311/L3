@@ -24,10 +24,13 @@ public abstract class Personnage {
         return this.position;
     }
 
+    public void setPosition(int position){
+        this.position = position;
+    }
+
     public void deplacer(int destination, int gain){
         this.position += destination;
-        proprietaire.modifierPoints(gain);
-        
+        proprietaire.modifierPoints(gain);     
     }
 
     public void penaliser(int penalite){

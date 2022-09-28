@@ -46,8 +46,9 @@ public class Joueur {
      * @param nb
      */
     public void modifierPoints(int nb){
-        if(nbPoints > 0){
-            this.nbPoints += nb;
+        this.nbPoints += nb;
+        if (this.nbPoints < 0){
+            setNbPoints(0);
         }
         
     }
