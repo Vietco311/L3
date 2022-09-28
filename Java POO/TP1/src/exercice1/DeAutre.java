@@ -1,3 +1,4 @@
+/**
 package exercice1;
 //EN TRAVAUX!!!
 public class DeAutre extends Des {
@@ -33,3 +34,4 @@ public class DeAutre extends Des {
 	}
 
 }
+*/

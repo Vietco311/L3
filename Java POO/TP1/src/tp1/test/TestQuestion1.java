@@ -5,7 +5,6 @@ import exercice2.Secretaire;
 
 import java.time.LocalDateTime;
 
-import exercice2.Adresse;
 import exercice2.Employe;
 import exercice2.Manager;
 

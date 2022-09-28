@@ -30,11 +30,11 @@ public class Personne{
 	/** 
 	 * Constructeur de Personne
 	 * @param leNom le nom de la personne
-	 * @param lePrenom le pr�nom de la personne
+	 * @param lePrenom le prénom de la personne
 	 * @param j le jour de naissance
 	 * @param m le mois de naissance
-	 * @param a l'ann�e de naissance
-	 * @param numero le n� de la rue
+	 * @param a l'année de naissance
+	 * @param numero le n° de la rue
 	 * @param rue la rue
 	 * @param code_postal le code postal de l'adresse
 	 * @param ville la ville ou la personne habite
@@ -94,7 +94,7 @@ public class Personne{
 	public String toString(){
 		String result="\nNom : "+nom+"\n"
 		+"Pr�nom : "+prenom+"\n"+
-		"N�(e) le : "+dateNaissance.getDayOfMonth()+
+		"Né(e) le : "+dateNaissance.getDayOfMonth()+
 		"-"+dateNaissance.getMonthValue()+
 		"-"+dateNaissance.getYear()+"\n"+
 		"Adresse : "+
@@ -102,17 +102,20 @@ public class Personne{
 		return result;
 	}
 	
+	/**
+	 * Compare l'âge de deux personnes
+	 * @param p1, first person
+	 * @param p2, second people
+	 * @return
+	 */
 	public static boolean plusAgee(Personne p1, Personne p2) {
-		boolean result;
-		if (p1.dateNaissance.compareTo(p2.dateNaissance) < 0) {
-			result = true;
-		}
-		else {
-			result = false;
-		}
-		return result;
+		return p1.dateNaissance.compareTo(p2.dateNaissance) < 0;
 	}
-	
+	/**
+	 * Compare l'âge de la personne actuelle avec une autre
+	 * @param p1
+	 * @return
+	 */
 	public boolean plusAgeeQue(Personne p1) {
 		return plusAgee(this, p1);
 	}

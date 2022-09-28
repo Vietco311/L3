@@ -1,6 +1,3 @@
-/**
- * 
- */
 package exercice2;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
@@ -11,13 +8,42 @@ import java.time.temporal.ChronoUnit;
  */
 public class Employe extends Personne{
 	
-	protected double salaire;
-	protected LocalDateTime dateEmbauche;
-	protected long longevite;
-	protected static final int anneeMin = 16;
-	protected static final int anneeMax = 65;
+	private double salaire;
+	private final LocalDateTime DATE_EMBAUCHE;
+	private long longevite;
+	private static final int anneeMin = 16;
+	private static final int anneeMax = 65;
 	
-	
+
+		/**
+	 * Constructeur
+	 * @param unePersonne, la personne qui est employé
+	 * @param leSalaire, le salaire de l'employé
+	 * @param laDateEmbauche, la date d'embauche de l'employé
+	 */
+	public Employe(Personne unePersonne, double leSalaire, LocalDateTime laDateEmbauche) {
+		super(unePersonne.nom, unePersonne.prenom, unePersonne.dateNaissance, unePersonne.adresse);
+		this.salaire = leSalaire;
+		this.DATE_EMBAUCHE = laDateEmbauche;
+		
+	}
+
+	/**
+	 * Accesseur
+	 * @return
+	 */
+	public static int getAnneMin(){
+		return anneeMin;
+	}
+
+	/**
+	 * Accesseur
+	 * @return
+	 */
+	public static int getAnneeMax(){
+		return anneeMax;
+	}
+
 	/**
 	 * Accesseur
 	 * @return retourne le salaire
@@ -26,6 +52,10 @@ public class Employe extends Personne{
 		return salaire;
 	}
 	
+	public LocalDateTime getDateEmbauche(){
+		return DATE_EMBAUCHE;
+	}
+
 	/**
 	 * Accesseur
 	 * @return retourne la longévité
@@ -48,18 +78,7 @@ public class Employe extends Personne{
 		this.longevite = longevite;
 	}
 
-	/**
-	 * Constructeur
-	 * @param unePersonne, la personne qui est employé
-	 * @param leSalaire, le salaire de l'employé
-	 * @param laDateEmbauche, la date d'embauche de l'employé
-	 */
-	public Employe(Personne unePersonne, double leSalaire, LocalDateTime laDateEmbauche) {
-		super(unePersonne.nom, unePersonne.prenom, unePersonne.dateNaissance, unePersonne.adresse);
-		this.salaire = leSalaire;
-		this.dateEmbauche = laDateEmbauche;
-		
-	}
+
 	
 	/**
 	 * Méthode
@@ -94,7 +113,7 @@ public class Employe extends Personne{
 	 * @return la longevité de l'employé dans la boîte
 	 */
 	public long calculAnnuite() {
-		long longevite = ChronoUnit.YEARS.between(this.dateEmbauche, LocalDateTime.now());
+		long longevite = ChronoUnit.YEARS.between(this.DATE_EMBAUCHE, LocalDateTime.now());
 		setLongevite(longevite);
 		return getLongevite();
 	}

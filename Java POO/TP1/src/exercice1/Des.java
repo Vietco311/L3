@@ -13,7 +13,13 @@ public class Des {
 	
 	//Constructors
 	
-	//Set default name to "De n°x"
+	//
+	/**
+	 * 
+	 * @param nName, name of the dice
+	 * @param nNbFace, his number of faces
+	 * Set default name to "De n°x"
+	 */
 	public Des(String nName, int nNbFace) {
 		nbDes ++;
 		if (nName == "" || nName == null) {
@@ -39,19 +45,35 @@ public class Des {
 	}
 	
 	
-	//Getters
+	/**
+	 * Getter
+	 * @return name of the dice
+	 */
 	
 	public String getName() {
 		return name;
 	}
-	public static int getNb_Des() {
+
+	/**
+	 * Getter
+	 * @return number of dices
+	 */
+	public static int getNbDes() {
 		return nbDes;
 	}
+
+	/**
+	 * Getter
+	 * @return number of faces
+	 */
 	public int getNbFaces() {
 		return nbFaces;
 	}
 	
-	//Setter
+	/**
+	 * Setter
+	 * @param nbFaces, number of faces
+	 */
 	public void setNbFaces(int nbFaces) {
 		if (nbFaces < MIN || nbFaces > MAX) {
 			System.err.println("Nombre de faces incorrect");
@@ -64,13 +86,19 @@ public class Des {
 	
 
 	
-	//Methods
-	//Throw a dice
+	/**
+	 * Throw a dice
+	 * @return the value
+	 */
 	public int lancer() {
 		return r.nextInt(nbFaces+1);
 	}
 	
-	//Throw a dice nb number of time
+	/**
+	 * Throw a dice nb times
+	 * @param nb, number of throw
+	 * @return the maximum value obtained of all throw
+	 */
 	public int lancer(int nb) {
 		int max = 0;
 		int i = 0;
@@ -79,6 +107,7 @@ public class Des {
 			if (nbAleatoire > max) {
 				max = nbAleatoire;
 			}
+			i++;
 		}
 		return max;
 	}

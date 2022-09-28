@@ -4,7 +4,12 @@ public class DePipe extends Des {
 	//Attributes
 	private int borneMin;
 	
-	//Constructor
+	/**
+	 * 
+	 * @param nName, name of the dice
+	 * @param nNbFace, his number of faces
+	 * @param nBorneMin, the minimum value required to cheat.
+	 */
 	public DePipe(String nName, int nNbFace, int nBorneMin) {
 		super(nName, nNbFace);
 		if (nBorneMin < nNbFace && nBorneMin >= MIN) {
@@ -15,7 +20,10 @@ public class DePipe extends Des {
 		}
 	}
 	
-	//Throw a dice which keeps rolling while the random value is under borneMin
+	
+	/**
+	 * Throw the biased dice
+	 */
 	public int lancer() {
 		int nbAleatoire = r.nextInt(nbFaces);
 		while (nbAleatoire < borneMin) {

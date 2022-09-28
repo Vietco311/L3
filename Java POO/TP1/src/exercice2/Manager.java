@@ -1,6 +1,6 @@
 package exercice2;
-
-import java.time.LocalDateTime;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 public class Manager extends Employe{
 	private Secretaire secretaire;
@@ -14,7 +14,10 @@ public class Manager extends Employe{
 		this.secretaire = secretaire;
 	}
 	
-
+	/**
+	 * Accesseur
+	 * @return 
+	 */
 	public Secretaire getSecretaire() {
 		return secretaire;
 	}
@@ -26,8 +29,18 @@ public class Manager extends Employe{
 	 * @param laSecretaire, la secrétaire personnelle du manager
 	 */
 	public Manager(Employe unEmploye, Secretaire laSecretaire) {
-		super(unEmploye, unEmploye.salaire, unEmploye.dateEmbauche);
+		super(unEmploye, unEmploye.getSalaire(), unEmploye.getDateEmbauche());
 		laSecretaire.getListManager().add(this);
+	}
+
+	public static Manager createManager(Employe unEmploye, Secretaire laSecretaire) {
+		long age = ChronoUnit.YEARS.between(unEmploye.dateNaissance, LocalDateTime.now());
+		if ( age > getAnneMin() && age < getAnneeMax()) {
+			return new Manager(unEmploye, laSecretaire);
+		}
+		else {
+			return null;
+		}
 	}
 	
 	/**
@@ -36,7 +49,7 @@ public class Manager extends Employe{
 	 */
 	public void augmenterSalaire(int pourcentage) {
 		if (pourcentage > 0) {
-			setSalaire(((salaire / 100) * (pourcentage + bonus)) + salaire);
+			setSalaire(((getSalaire() / 100) * (pourcentage + bonus)) + getSalaire());
 		}
 	}
 	
@@ -45,7 +58,8 @@ public class Manager extends Employe{
 	 * @param secretaire, change la secrétaire du manager
 	 */
 	public void changeSecretaire(Secretaire secretaire) {
+		this.secretaire.enleveManager(this);
 		setSecretaire(secretaire);
-		secretaire.getListManager().remove(this);
+		secretaire.ajouteManager(this);
 	}
 }
