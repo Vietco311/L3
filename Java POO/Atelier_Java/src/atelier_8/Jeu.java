@@ -15,12 +15,24 @@ public class Jeu {
     private static int scoreMax;
     private Random r = new Random();
 
+    /**
+     * Constructor of the game, initialize its title, its number of round and its maximum number of obstacles
+     * @param nTitre
+     * @param nNbEtapes
+     * @param nNbObstacle
+     */
     public Jeu(String nTitre, int nNbEtapes, int nNbObstacle){
         this.titre = nTitre;
         this.nbEtapes = nNbEtapes;
         this.nbObstacles = nNbObstacle;
+        this.listeJoueurs = new ArrayList<Joueur>();
+        this.cases = new ArrayList<Case>();
     }
 
+    /**
+     * Add a player to the game
+     * @param j
+     */
     public void ajouterJoueur(Joueur j){
         if (listeJoueurs.size() <= NB_JOUEUR_MAX){
             listeJoueurs.add(j);
@@ -28,6 +40,10 @@ public class Jeu {
 
     }
 
+    /**
+     * Add in a list all the character who will play
+     * @return
+     */
     public ArrayList<Personnage> tousLesPersos(){
         ArrayList<Personnage> lesPersos = new ArrayList<>();
         for(int i = 0; i < listeJoueurs.size(); i++){
@@ -38,11 +54,14 @@ public class Jeu {
         return lesPersos;
     }
 
+    /**
+     * Initialize cases with random value
+     */
     public void initialiserCases(){
         int nbObs = 0;
         for (int i = 0; i < NB_CASES; i++){
             int rand = r.nextInt(NB_CASES);
-            if (rand%5 == 0 && nbObs < nbObstacles){
+            if (rand%5 == 0 && nbObs < nbObstacles){ //Place an obstacle if the value is modulo of 5
                 Obstacle obs = new Obstacle(rand*2);
                 Case c = new Case(obs, rand);
                 cases.add(c);
@@ -54,9 +73,14 @@ public class Jeu {
         }
     }
 
+
+    /**
+     * Launch a game
+     * 
+     */
     public void lancerJeu(){
         initialiserCases();
-        for(int i = 0; i < tousLesPersos().size(); i++){
+        for(int i = 0; i < tousLesPersos().size(); i++){ //Place characters on the first free case of the board
             int j = 0;
             while(!(cases.get(j).estLibre())){
                 j++;
@@ -74,7 +98,7 @@ public class Jeu {
                 if(cases.get(positionEspere).estLibre()){
                     cases.get((tousLesPersos().get(k).getPosition())%NB_CASES).enleverPersonnage();
                     tousLesPersos().get(k).deplacer(avancementEspere, (cases.get(positionEspere).getGain()));
-                    cases.get(positionEspere).placerPersonnage(tousLesPersos().get(k));
+                    cases.get((positionEspere)%NB_CASES).placerPersonnage(tousLesPersos().get(k));
                 } else if (cases.get(positionEspere).sansPerso()) {
                     tousLesPersos().get(k).penaliser(cases.get(positionEspere).getPenalite());
                 } else {
@@ -86,12 +110,18 @@ public class Jeu {
         System.out.println(afficherResultat());
     }
 
+    /**
+     * Show all the case with their status
+     */
     public void afficheCases(){
         for (int i = 0; i < cases.size(); i++){
             System.out.println(cases.get(i).toString() + " " + i);
         }
     }
 
+    /**
+     * Show all the players with their characters
+     */
     public void afficherParticipants(){
         System.out.println("LISTE DE JOUEUR");
         for (int i = 0; i < listeJoueurs.size(); i++){
@@ -100,6 +130,10 @@ public class Jeu {
         }
     }
 
+    /**
+     * Show the result of a game(list of players then winner)
+     * @return
+     */
     public String afficherResultat(){
         Joueur premier = listeJoueurs.get(0);
         afficherParticipants();

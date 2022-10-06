@@ -112,7 +112,7 @@ public class Case {
             result = "Obstacle (penalité = " + getPenalite() + ")"; 
         }
         else if (sansPerso() == false){
-            result = perso.toString() + "(penalité = " + gain + ")";
+            result = perso.toString() + "(penalité = -" + gain + ")";
         }else{
             result = null;
         }

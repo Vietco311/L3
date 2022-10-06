@@ -7,7 +7,7 @@ public class Joueur {
     private String code;
     private static int nbJoueurs;
     private int nbPoints = 0;
-    private ArrayList<Personnage> listPersos = new ArrayList<Personnage>();
+    private ArrayList<Personnage> listPersos;
 
 
     /**
@@ -18,16 +18,29 @@ public class Joueur {
         nbJoueurs++;
         this.nom = nNom;
         this.code = "J" + nbJoueurs;
+        this.listPersos = new ArrayList<Personnage>();
     }
 
+    /**
+     * Getter, points of the player
+     * @return
+     */
     public int getNbPoints() {
         return this.nbPoints;
     }
 
+    /**
+     * Setter, change points of the player
+     * @param nbPoints
+     */
     public void setNbPoints(int nbPoints) {
         this.nbPoints = nbPoints;
     }
 
+    /**
+     * Getter, get the character of a player
+     * @return
+     */
     public ArrayList<Personnage> getListPersos() {
         return this.listPersos;
     }
@@ -38,8 +51,10 @@ public class Joueur {
      * @param p
      */
     public void ajouterPersonnage(Personnage p){
-        this.listPersos.add(p);
-        p.setProprietaire(this);
+        if (!(listPersos.contains(p)) && p != null){
+            this.listPersos.add(p);
+            p.setProprietaire(this);
+        }
     }
     /**
      * Add points to player score
@@ -57,11 +72,12 @@ public class Joueur {
      * @return true if the player has at least one character
      */
     public boolean peutJouer(){
-        return listPersos.size() > 0;
+        return !(listPersos.isEmpty());
     }
 
+    @Override
     /**
-     * @override toString
+     * 
      * @return information on the player
      */
     public String toString(){
