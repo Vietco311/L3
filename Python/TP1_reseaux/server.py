@@ -1,5 +1,9 @@
 # Echo server program
+import random
 import socket
+
+
+mystere = random.randint(0, 10)
 
 HOST = 'localhost'                 # Symbolic name meaning all available interfaces
 PORT = 50007              # Arbitrary non-privileged port

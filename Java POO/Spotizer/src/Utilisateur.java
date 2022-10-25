@@ -1,4 +1,6 @@
-public class Utilisateur {
+import java.util.ArrayList;
+
+public abstract class Utilisateur {
     private String nom;
     private String prenom;
     private String username;
@@ -9,7 +11,5 @@ public class Utilisateur {
         this.username = nUsername;
     }
 
-    public Playlist creerPlaylist(){
-        
-    }
+    public abstract RegroupementMusique creerListeMusic(String nNom, ArrayList<Titre> nMusiques);
 }

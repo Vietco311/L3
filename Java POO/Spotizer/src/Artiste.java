@@ -1,23 +1,12 @@
-public class Artiste {
-    private String nom;
-    private String prenom;
-    private String nomScene;
+import java.util.*;
+
+public class Artiste extends Utilisateur{
 
     public Artiste(String nNom, String nPrenom, String nNomScene){
-        this.nom = nNom;
-        this.prenom = nPrenom;
-        this.nomScene = nNomScene;
+        super(nNom, nPrenom, nNomScene);
     }
 
-    public String getNom(){
-        return this.nom;
-    }
-
-    public String getPrenom(){
-        return this.prenom;
-    }
-
-    public String getNomScene(){
-        return this.nomScene;
+    public Album creerListeMusic(String nNom, ArrayList<Titre> nMusiques, ){
+        return new Album(nNom, nMusiques,)
     }
 }

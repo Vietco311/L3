@@ -1,7 +1,9 @@
+import java.util.*;
+
 public class Compilation extends RegroupementMusique{
     private Groupe labelle;
 
-    public Compilation(String nNom, Titre[] nMusiques, Groupe nLabelle){
+    public Compilation(String nNom, ArrayList<Titre> nMusiques, Groupe nLabelle){
         super(nNom, nMusiques);
         this.labelle = nLabelle;
     }
