@@ -6,9 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
-/*
- * www.codeurjava.com
- */
+
 public class Client {
 
     public static void main(String[] args) throws Exception{

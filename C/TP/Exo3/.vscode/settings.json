@@ -1,0 +1,14 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "d:\\code\\L3\\C\\TP\\Exo3",
+            "binaryPath": "d:\\code\\L3\\C\\TP\\Exo3\\ColinExo3",
+            "binaryArgs": []
+        }
+    ],
+    "files.associations": {
+        "train.h": "c",
+        "fonction_pile.h": "c"
+    }
+}

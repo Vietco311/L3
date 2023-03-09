@@ -1,0 +1,28 @@
+html{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto;
+    background: #A0C5E8;
+    padding: 10px 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #FFFFD0;
+    justify-items: center;
+    padding: 1%;
+    border-style: outset;
+    border-color: #FFFFF0;
+    align-content: center;
+}
+

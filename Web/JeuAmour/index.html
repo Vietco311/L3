@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="./index.js"></script>
+        <link rel="stylesheet" href="./index.css">
+    </head>
+    <body>
+        <h1>Jeu Amour</h1>
+        <form onsubmit="return main(nbMoi.value, guess.value)">
+            Entrer votre nombre: <input name="nbMoi" type="text">
+            <br>
+            Entrer votre supposition de la somme: <input name="guess" type="text">
+            <br>
+            <input type="submit" value="Envoyer le nombre">
+        </form>
+        <div>
+            Choix de la machine: <input id="choixBot"><br>
+            Supposition de la machine: <input id="guessBot"><br>
+            Somme: <input id="somme"><br>
+            Resultat: <input id="response"></input>
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,8 @@
+% les faits :
+epouse(alice,luc). % alice est l'épouse de luc
+epouse(myriam,philip).
+pere(luc,jean). % luc est le père de jean
+pere(philip,adrien).
+
+% les règles :
+mere(M,E):-pere(P,E),epouse(M,P). % M est la mère de E si P est le père de E et si M est l'épouse de P
